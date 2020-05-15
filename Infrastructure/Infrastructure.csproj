@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\SeedData\" />
+    <Compile Remove="Migrations\20200514194521_OrderEntityAdded.cs" />
+    <Compile Remove="Migrations\20200514194521_OrderEntityAdded.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\GenericRepository.cs~RFbe0330.TMP" />
   </ItemGroup>
 
   <ItemGroup>
