@@ -27,11 +27,20 @@ namespace WiskartApi
 
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
-            services.AddDbContext<StoreContext>(options =>
-              options.UseSqlServer(_config.GetConnectionString("eCommerceApp")));
 
-            services.AddDbContext<AppIdentityDbContext>(x => 
-            x.UseSqlServer(_config.GetConnectionString("IdentityConnection")));
+            //sql server connection string
+            //services.AddDbContext<StoreContext>(options =>
+            //  options.UseSqlServer(_config.GetConnectionString("eCommerceApp")));
+
+            //services.AddDbContext<AppIdentityDbContext>(x =>
+            //x.UseSqlServer(_config.GetConnectionString("IdentityConnection")));
+
+            //my sql connection string
+            services.AddDbContext<StoreContext>(options =>
+                    options.UseMySql(_config.GetConnectionString("eCommerceApp")));
+
+            services.AddDbContext<AppIdentityDbContext>(x =>
+            x.UseMySql(_config.GetConnectionString("IdentityConnection")));
 
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {

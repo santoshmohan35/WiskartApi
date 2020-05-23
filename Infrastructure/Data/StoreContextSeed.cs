@@ -13,6 +13,8 @@ namespace Infrastructure.Data
 {
     public class StoreContextSeed
     {
+        private static string path;
+
         public static async Task SeedAsync(StoreContext context, ILoggerFactory loggerFactory)
         {
             try
@@ -52,11 +54,21 @@ namespace Infrastructure.Data
                     var productsData =
                         File.ReadAllText("../Infrastructure/Data/SeedData/products.json");
 
-                    var products = JsonConvert.DeserializeObject<List<Product>>(productsData);
+                    var products = JsonConvert.DeserializeObject<List<ProductSeedModel>>(productsData);
 
                     foreach (var item in products)
                     {
-                        context.Products.Add(item);
+                        var pictureFileName = item.PictureUrl.Substring(16);
+                        var product = new Product
+                        {
+                            Name = item.Name,
+                            Description = item.Description,
+                            Price = item.Price,
+                            ProductBrandId = item.ProductBrandId,
+                            ProductTypeId = item.ProductTypeId
+                        };
+                        product.AddPhoto(item.PictureUrl, pictureFileName);
+                        context.Products.Add(product);
                     }
 
                     await context.SaveChangesAsync();
